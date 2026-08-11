@@ -23,11 +23,12 @@ export const AppNavigator: React.FC = () => {
       initialRouteName="Game"
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: '#FF5E97',
-        tabBarInactiveTintColor: '#FFF385',
+        sceneStyle: { backgroundColor: '#090d16' },
+        tabBarActiveTintColor: '#818cf8',
+        tabBarInactiveTintColor: '#64748B',
         tabBarStyle: {
-          backgroundColor: '#4A1542',
-          borderTopColor: '#FF5E97',
+          backgroundColor: '#090d16',
+          borderTopColor: 'rgba(255, 255, 255, 0.08)',
           borderTopWidth: 1,
           // Tinggi total = konten + safe area bottom (gesture nav bar)
           height: tabBarHeight,

@@ -15,6 +15,8 @@ import { ConfigCard } from '../components/ConfigCard';
 import { PermissionCard } from '../components/PermissionCard';
 import { ControlCard } from '../components/ControlCard';
 import { ConsoleLog } from '../components/ConsoleLog';
+import { BackgroundGlow } from '../components/BackgroundGlow';
+import { GradientButton } from '../components/GradientButton';
 
 // Constants
 import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
@@ -189,82 +191,35 @@ export const SettingsScreen: React.FC = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#2A0825' }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle="light-content" backgroundColor="#2A0825" />
-        <Header title="Setting" subtitle="Setting Screen" Icon={Settings} />
+    <View className="flex-1 bg-slate-950" style={{ flex: 1, backgroundColor: '#090d16' }}>
+      <BackgroundGlow />
+      <SafeAreaView className="flex-1">
+        <StatusBar barStyle="light-content" backgroundColor="#090d16" />
+        <Header subtitle="Settings" />
 
-        <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-          {/* <ConfigCard
-            vpsUrl={vpsUrl}
-            setVpsUrl={setVpsUrl}
-            apiKey={apiKey}
-            setApiKey={setApiKey}
-            deviceId={deviceId}
-            setDeviceId={setDeviceId}
-          /> */}
-
-          {/* <PermissionCard
-            storagePermissionGranted={storagePermissionGranted}
-            onRequestPermission={() => requestStoragePermission(addLog, setStoragePermissionGranted)}
-          /> */}
-
-          {/* <ControlCard
-            connectionStatus={connectionStatus}
-            isBgActive={isBgActive}
-            onConnectToggle={handleConnectToggle}
-            onBgServiceToggle={handleBgServiceToggle}
-          /> */}
-
-          {/* <ConsoleLog logs={logs} /> */}
-
+        <ScrollView className="flex-1 p-4" keyboardShouldPersistTaps="handled">
           {/* VPS Connection Status Card */}
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Koneksi Database</Text>
+          <View className="bg-slate-900/70 border border-white/10 rounded-2xl p-5 mb-4 shadow-lg">
+            <Text className="text-base font-bold text-slate-50 mb-3">Koneksi Database</Text>
 
             {/* Status Koneksi */}
-            <View style={[styles.statusRow]}>
-              <Text style={styles.statusLabel}>V1.0.0:</Text>
-              {/* <Text style={[styles.statusVal, {
-                color: connectionStatus === 'connected' ? '#FF5E97'
-                  : connectionStatus === 'connecting' ? '#F59E0B'
-                    : connectionStatus === 'error' ? '#EF4444'
-                      : '#FFF385',
-                fontWeight: 'bold',
-              }]}>
-                {connectionStatus === 'connected' ? '● Aktif'
-                  : connectionStatus === 'connecting' ? '● Menghubungkan...'
-                    : connectionStatus === 'error' ? '● Error'
-                      : '● Terputus'}
-              </Text> */}
+            <View className="flex-row items-center mb-2">
+              <Text className="text-sm font-semibold text-slate-400 mr-2">V1.0.0:</Text>
             </View>
 
-            {/* Tombol Reconnect */}
-            <TouchableOpacity
-              style={[styles.actionButton, {
-                backgroundColor: connectionStatus === 'connected' ? '#FFF385' : '#FF5E97',
-                marginTop: 12,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                opacity: isReconnecting ? 1 : 1,
-              }]}
+            {/* Tombol Reconnect Bergradasi */}
+            <GradientButton
+              title={isReconnecting ? 'Menghubungkan...' : connectionStatus === 'connected' ? 'Check Update' : 'Checking Update...'}
+              Icon={RefreshCw}
               onPress={handleReconnect}
               disabled={isReconnecting}
-            >
-              <RefreshCw
-                color="#2A0825"
-                size={16}
-                style={{ marginRight: 8 }}
-              />
-              <Text style={styles.buttonText}>
-                {isReconnecting ? 'Menghubungkan...' : connectionStatus === 'connected' ? 'Check Update' : 'Checking Update...'}
-              </Text>
-            </TouchableOpacity>
+              colors={connectionStatus === 'connected' ? ['#334155', '#1E293B'] : ['#4F46E5', '#7C3AED']}
+              style={{ marginTop: 12 }}
+            />
           </View>
 
           {/* Spacer */}
-          <View style={{ height: 30 }} />
+          <View className="h-8" />
         </ScrollView>
       </SafeAreaView>
     </View>

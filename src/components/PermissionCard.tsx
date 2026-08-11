@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { styles } from '../styles/App.styles';
 
 interface PermissionCardProps {
   storagePermissionGranted: boolean;
@@ -12,29 +11,36 @@ export const PermissionCard: React.FC<PermissionCardProps> = ({
   onRequestPermission,
 }) => {
   return (
-    <View style={styles.card}>
-      <View style={styles.permissionHeader}>
-        <Text style={styles.cardTitle}>Android Storage Access</Text>
-        <View style={[
-          styles.badge,
-          { backgroundColor: storagePermissionGranted ? '#065F46' : '#991B1B' }
-        ]}>
-          <Text style={styles.badgeText}>
+    <View className="bg-slate-900 border border-slate-800 rounded-2xl p-5 mb-4 shadow-lg">
+      <View className="flex-row justify-between items-center mb-2">
+        <Text className="text-base font-bold text-slate-50">Android Storage Access</Text>
+        <View
+          className={`px-2.5 py-1 rounded-full border ${
+            storagePermissionGranted
+              ? 'bg-emerald-500/20 border-emerald-500/30'
+              : 'bg-red-500/20 border-red-500/30'
+          }`}
+        >
+          <Text
+            className={`text-xs font-bold ${
+              storagePermissionGranted ? 'text-emerald-400' : 'text-red-400'
+            }`}
+          >
             {storagePermissionGranted ? 'Granted' : 'Required'}
           </Text>
         </View>
       </View>
 
-      <Text style={styles.cardDescription}>
+      <Text className="text-xs text-slate-400 leading-relaxed mb-3">
         Izin ini dibutuhkan agar VPS Anda bisa membaca berkas di memori eksternal (seperti DCIM atau Download).
       </Text>
 
       {!storagePermissionGranted && (
         <TouchableOpacity
-          style={styles.permissionButton}
+          className="bg-indigo-600 active:bg-indigo-700 rounded-xl py-2.5 items-center justify-center mt-1"
           onPress={onRequestPermission}
         >
-          <Text style={styles.buttonText}>Beri Izin Akses File</Text>
+          <Text className="text-slate-50 text-sm font-bold">Beri Izin Akses File</Text>
         </TouchableOpacity>
       )}
     </View>
