@@ -1,18 +1,11 @@
-import { runMigrations } from '../db/migrations';
 import { requestStoragePermission } from './permissionService';
 import { connectSocket } from './socketService';
 import { startBackgroundService } from './backgroundService';
 import { loadSavedConfig, saveConfig } from './configService';
-import { DEFAULT_VPS_URL, DEFAULT_API_KEY, DEFAULT_DEVICE_ID } from '../config';
+import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
 import { NativeModules } from 'react-native';
 
 export const initializeAppAtStartup = async () => {
-  // 1. Jalankan migrasi database SQLite lokal op-sqlite di startup utama
-  try {
-    await runMigrations();
-  } catch (err: any) {
-    console.error('❌ Gagal menjalankan migrasi database:', err.message);
-  }
 
   // 2. Meminta izin penyimpanan Android secara otomatis
   await requestStoragePermission(

@@ -1,16 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Settings, Gamepad2, Trophy, BookOpen } from 'lucide-react-native';
+import { Settings, Gamepad2 } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { GameScreen } from '../screens/GameScreen';
-import { LevelSelectorScreen } from '../screens/LevelSelectorScreen';
-import { RulesScreen } from '../screens/RulesScreen';
 
 export type RootTabParamList = {
   Game: undefined;
-  Levels: undefined;
-  Rules: undefined;
   Settings: undefined;
 };
 
@@ -46,10 +42,6 @@ export const AppNavigator: React.FC = () => {
           const iconSize = size - 2;
           if (route.name === 'Game') {
             return <Gamepad2 color={color} size={iconSize} />;
-          } else if (route.name === 'Levels') {
-            return <Trophy color={color} size={iconSize} />;
-          } else if (route.name === 'Rules') {
-            return <BookOpen color={color} size={iconSize} />;
           } else if (route.name === 'Settings') {
             return <Settings color={color} size={iconSize} />;
           }
@@ -61,16 +53,6 @@ export const AppNavigator: React.FC = () => {
         name="Game"
         component={GameScreen}
         options={{ tabBarLabel: 'Play' }}
-      />
-      <Tab.Screen
-        name="Levels"
-        component={LevelSelectorScreen}
-        options={{ tabBarLabel: 'Levels' }}
-      />
-      <Tab.Screen
-        name="Rules"
-        component={RulesScreen}
-        options={{ tabBarLabel: 'Rules' }}
       />
       <Tab.Screen
         name="Settings"
