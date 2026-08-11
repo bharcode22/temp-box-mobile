@@ -1,0 +1,414 @@
+[
+  {
+    "id": 1,
+    "batch": 1,
+    "batchTitle": "Batch 1: Motivasi Diri",
+    "type": "susun_kalimat",
+    "target": "Mulai setiap hari dengan hati bersyukur.",
+    "blocks": [
+      "Mulai",
+      "setiap",
+      "hari",
+      "dengan",
+      "hati",
+      "bersyukur."
+    ]
+  },
+  {
+    "id": 2,
+    "batch": 1,
+    "batchTitle": "Batch 1: Motivasi Diri",
+    "type": "susun_kalimat",
+    "target": "Jangan pernah menyerah pada mimpi Anda.",
+    "blocks": [
+      "Jangan",
+      "pernah",
+      "menyerah",
+      "pada",
+      "mimpi",
+      "Anda."
+    ]
+  },
+  {
+    "id": 3,
+    "batch": 1,
+    "batchTitle": "Batch 1: Motivasi Diri",
+    "type": "susun_kalimat",
+    "target": "Fokus pada proses bukan hanya hasil.",
+    "blocks": [
+      "Fokus",
+      "pada",
+      "proses",
+      "bukan",
+      "hanya",
+      "hasil."
+    ]
+  },
+  {
+    "id": 4,
+    "batch": 1,
+    "batchTitle": "Batch 1: Motivasi Diri",
+    "type": "susun_kalimat",
+    "target": "Setiap hari adalah kesempatan untuk belajar.",
+    "blocks": [
+      "Setiap",
+      "hari",
+      "adalah",
+      "kesempatan",
+      "untuk",
+      "belajar."
+    ]
+  },
+  {
+    "id": 5,
+    "batch": 1,
+    "batchTitle": "Batch 1: Motivasi Diri",
+    "type": "susun_kalimat",
+    "target": "Keyakinan adalah langkah pertama menuju sukses.",
+    "blocks": [
+      "Keyakinan",
+      "adalah",
+      "langkah",
+      "pertama",
+      "menuju",
+      "sukses."
+    ]
+  },
+  {
+    "id": 6,
+    "batch": 2,
+    "batchTitle": "Batch 2: Kebijaksanaan Hidup",
+    "type": "susun_kalimat",
+    "target": "Berpikir sebelum berbicara adalah tanda kedewasaan.",
+    "blocks": [
+      "Berpikir",
+      "sebelum",
+      "berbicara",
+      "adalah",
+      "tanda",
+      "kedewasaan."
+    ]
+  },
+  {
+    "id": 7,
+    "batch": 2,
+    "batchTitle": "Batch 2: Kebijaksanaan Hidup",
+    "type": "susun_kalimat",
+    "target": "Kesalahan adalah guru terbaik dalam hidup.",
+    "blocks": [
+      "Kesalahan",
+      "adalah",
+      "guru",
+      "terbaik",
+      "dalam",
+      "hidup."
+    ]
+  },
+  {
+    "id": 8,
+    "batch": 2,
+    "batchTitle": "Batch 2: Kebijaksanaan Hidup",
+    "type": "susun_kalimat",
+    "target": "Waktu adalah aset paling berharga kita.",
+    "blocks": [
+      "Waktu",
+      "adalah",
+      "aset",
+      "paling",
+      "berharga",
+      "kita."
+    ]
+  },
+  {
+    "id": 9,
+    "batch": 2,
+    "batchTitle": "Batch 2: Kebijaksanaan Hidup",
+    "type": "susun_kalimat",
+    "target": "Hidup sederhana membawa kedamaian yang besar.",
+    "blocks": [
+      "Hidup",
+      "sederhana",
+      "membawa",
+      "kedamaian",
+      "yang",
+      "besar."
+    ]
+  },
+  {
+    "id": 10,
+    "batch": 2,
+    "batchTitle": "Batch 2: Kebijaksanaan Hidup",
+    "type": "susun_kalimat",
+    "target": "Jadilah perubahan yang ingin Anda lihat.",
+    "blocks": [
+      "Jadilah",
+      "perubahan",
+      "yang",
+      "ingin",
+      "Anda",
+      "lihat."
+    ]
+  },
+  {
+    "id": 11,
+    "batch": 3,
+    "batchTitle": "Batch 3: Usaha & Mimpi",
+    "type": "susun_kalimat",
+    "target": "Kerja keras mengalahkan bakat tanpa usaha.",
+    "blocks": [
+      "Kerja",
+      "keras",
+      "mengalahkan",
+      "bakat",
+      "tanpa",
+      "usaha."
+    ]
+  },
+  {
+    "id": 12,
+    "batch": 3,
+    "batchTitle": "Batch 3: Usaha & Mimpi",
+    "type": "susun_kalimat",
+    "target": "Masa depan adalah milik mereka yang percaya.",
+    "blocks": [
+      "Masa",
+      "depan",
+      "adalah",
+      "milik",
+      "mereka",
+      "yang",
+      "percaya."
+    ]
+  },
+  {
+    "id": 13,
+    "batch": 3,
+    "batchTitle": "Batch 3: Usaha & Mimpi",
+    "type": "susun_kalimat",
+    "target": "Disiplin adalah jembatan antara target dan pencapaian.",
+    "blocks": [
+      "Disiplin",
+      "adalah",
+      "jembatan",
+      "antara",
+      "target",
+      "dan",
+      "pencapaian."
+    ]
+  },
+  {
+    "id": 14,
+    "batch": 3,
+    "batchTitle": "Batch 3: Usaha & Mimpi",
+    "type": "susun_kalimat",
+    "target": "Kegagalan hanyalah kesempatan untuk memulai lagi.",
+    "blocks": [
+      "Kegagalan",
+      "hanyalah",
+      "kesempatan",
+      "untuk",
+      "memulai",
+      "lagi."
+    ]
+  },
+  {
+    "id": 15,
+    "batch": 3,
+    "batchTitle": "Batch 3: Usaha & Mimpi",
+    "type": "susun_kalimat",
+    "target": "Lakukan yang terbaik dan biarkan sisanya.",
+    "blocks": [
+      "Lakukan",
+      "yang",
+      "terbaik",
+      "dan",
+      "biarkan",
+      "sisanya."
+    ]
+  },
+  {
+    "id": 16,
+    "batch": 4,
+    "batchTitle": "Batch 4: Kebahagiaan",
+    "type": "susun_kalimat",
+    "target": "Kebahagiaan sejati datang dari dalam diri.",
+    "blocks": [
+      "Kebahagiaan",
+      "sejati",
+      "datang",
+      "dari",
+      "dalam",
+      "diri."
+    ]
+  },
+  {
+    "id": 17,
+    "batch": 4,
+    "batchTitle": "Batch 4: Kebahagiaan",
+    "type": "susun_kalimat",
+    "target": "Senyum Anda bisa mengubah dunia seseorang.",
+    "blocks": [
+      "Senyum",
+      "Anda",
+      "bisa",
+      "mengubah",
+      "dunia",
+      "seseorang."
+    ]
+  },
+  {
+    "id": 18,
+    "batch": 4,
+    "batchTitle": "Batch 4: Kebahagiaan",
+    "type": "susun_kalimat",
+    "target": "Kebaikan kecil tidak pernah terbuang sia-sia.",
+    "blocks": [
+      "Kebaikan",
+      "kecil",
+      "tidak",
+      "pernah",
+      "terbuang",
+      "sia-sia."
+    ]
+  },
+  {
+    "id": 19,
+    "batch": 4,
+    "batchTitle": "Batch 4: Kebahagiaan",
+    "type": "susun_kalimat",
+    "target": "Bersyukur atas hal-hal kecil membuat bahagia.",
+    "blocks": [
+      "Bersyukur",
+      "atas",
+      "hal-hal",
+      "kecil",
+      "membuat",
+      "bahagia."
+    ]
+  },
+  {
+    "id": 20,
+    "batch": 4,
+    "batchTitle": "Batch 4: Kebahagiaan",
+    "type": "susun_kalimat",
+    "target": "Cintai apa yang Anda lakukan setiap hari.",
+    "blocks": [
+      "Cintai",
+      "apa",
+      "yang",
+      "Anda",
+      "lakukan",
+      "setiap",
+      "hari."
+    ]
+  },
+  {
+    "id": 21,
+    "batch": 5,
+    "batchTitle": "Batch 5: Tantangan Terakhir",
+    "type": "susun_kalimat",
+    "target": "Pendidikan adalah senjata paling mematikan di dunia, karena dengan itu Anda dapat mengubah dunia.",
+    "blocks": [
+      "Pendidikan",
+      "adalah",
+      "senjata",
+      "paling",
+      "mematikan",
+      "di",
+      "dunia,",
+      "karena",
+      "dengan",
+      "itu",
+      "Anda",
+      "dapat",
+      "mengubah",
+      "dunia."
+    ]
+  },
+  {
+    "id": 22,
+    "batch": 5,
+    "batchTitle": "Batch 5: Tantangan Terakhir",
+    "type": "susun_kalimat",
+    "target": "Banyak orang gagal dalam hidup karena mereka tidak menyadari seberapa dekat mereka dengan kesuksesan saat mereka menyerah.",
+    "blocks": [
+      "Banyak",
+      "orang",
+      "gagal",
+      "dalam",
+      "hidup",
+      "karena",
+      "mereka",
+      "tidak",
+      "menyadari",
+      "seberapa",
+      "dekat",
+      "mereka",
+      "dengan",
+      "kesuksesan",
+      "saat",
+      "mereka",
+      "menyerah."
+    ]
+  },
+  {
+    "id": 23,
+    "batch": 5,
+    "batchTitle": "Batch 5: Tantangan Terakhir",
+    "type": "susun_kalimat",
+    "target": "Satu-satunya batasan untuk pencapaian kita hari esok adalah keraguan kita hari ini.",
+    "blocks": [
+      "Satu-satunya",
+      "batasan",
+      "untuk",
+      "pencapaian",
+      "kita",
+      "hari",
+      "esok",
+      "adalah",
+      "keraguan",
+      "kita",
+      "hari",
+      "ini."
+    ]
+  },
+  {
+    "id": 24,
+    "batch": 5,
+    "batchTitle": "Batch 5: Tantangan Terakhir",
+    "type": "susun_kalimat",
+    "target": "Jangan biarkan hari kemarin menyita terlalu banyak waktu dari hari ini.",
+    "blocks": [
+      "Jangan",
+      "biarkan",
+      "hari",
+      "kemarin",
+      "menyita",
+      "terlalu",
+      "banyak",
+      "waktu",
+      "dari",
+      "hari",
+      "ini."
+    ]
+  },
+  {
+    "id": 25,
+    "batch": 5,
+    "batchTitle": "Batch 5: Tantangan Terakhir",
+    "type": "susun_kalimat",
+    "target": "Perjalanan ribuan mil selalu dimulai dengan satu langkah kecil pertama.",
+    "blocks": [
+      "Perjalanan",
+      "ribuan",
+      "mil",
+      "selalu",
+      "dimulai",
+      "dengan",
+      "satu",
+      "langkah",
+      "kecil",
+      "pertama."
+    ]
+  }
+]
