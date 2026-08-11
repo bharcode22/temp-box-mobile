@@ -1,7 +1,7 @@
 import BackgroundJob from 'react-native-background-actions';
 import { isConnected, connectSocket } from './socketService';
 import { loadSavedConfig } from './configService';
-import { DEFAULT_VPS_URL, DEFAULT_API_KEY, DEFAULT_DEVICE_ID } from '../config';
+import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
 
 const sleep = (time: number) => new Promise<void>((resolve) => setTimeout(resolve, time));
 
@@ -23,7 +23,7 @@ async function keepAliveTask(taskDataArguments: any) {
         const configToUse = {
           vpsUrl: DEFAULT_VPS_URL || savedConfig?.vpsUrl || '',
           apiKey: DEFAULT_API_KEY || savedConfig?.apiKey || '',
-          deviceId: savedConfig?.deviceId || DEFAULT_DEVICE_ID,
+          deviceId: savedConfig?.deviceId || '',
         };
 
         console.log('[Background Service] Menghubungkan kembali menggunakan:', configToUse.vpsUrl);

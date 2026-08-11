@@ -17,7 +17,7 @@ import { ControlCard } from '../components/ControlCard';
 import { ConsoleLog } from '../components/ConsoleLog';
 
 // Constants
-import { DEFAULT_VPS_URL, DEFAULT_API_KEY, DEFAULT_DEVICE_ID } from '../config';
+import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
 
 // Styles
 import { styles } from '../styles/App.styles';
@@ -33,7 +33,7 @@ export const SettingsScreen: React.FC = () => {
   // Form Config
   const [vpsUrl, setVpsUrl] = useState(DEFAULT_VPS_URL);
   const [apiKey, setApiKey] = useState(DEFAULT_API_KEY);
-  const [deviceId, setDeviceId] = useState(DEFAULT_DEVICE_ID);
+  const [deviceId, setDeviceId] = useState('');
 
   // Statuses
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
