@@ -21,9 +21,6 @@ import { GradientButton } from '../components/GradientButton';
 // Constants
 import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
 
-// Styles
-import { styles } from '../styles/App.styles';
-
 interface AppLog {
   time: string;
   message: string;

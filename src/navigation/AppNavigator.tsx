@@ -25,10 +25,10 @@ export const AppNavigator: React.FC = () => {
         headerShown: false,
         sceneStyle: { backgroundColor: '#090d16' },
         tabBarActiveTintColor: '#818cf8',
-        tabBarInactiveTintColor: '#64748B',
+        tabBarInactiveTintColor: '#94a3b8',
         tabBarStyle: {
           backgroundColor: '#090d16',
-          borderTopColor: 'rgba(255, 255, 255, 0.08)',
+          borderTopColor: 'rgba(30, 41, 59, 0.8)',
           borderTopWidth: 1,
           // Tinggi total = konten + safe area bottom (gesture nav bar)
           height: tabBarHeight,

@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { styles } from '../styles/App.styles';
+import { View, Text, ScrollView, Platform } from 'react-native';
 
 interface AppLog {
   time: string;
@@ -23,25 +22,33 @@ export const ConsoleLog: React.FC<ConsoleLogProps> = ({ logs }) => {
   }, [logs]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <Text style={styles.sectionHeader}>Activity Log (Real-time)</Text>
-      <View style={styles.consoleContainer}>
+    <View className="flex-1 my-2">
+      <Text className="text-xs font-bold text-indigo-400 mb-2 uppercase tracking-wider">
+        Activity Log (Real-time)
+      </Text>
+      <View className="bg-slate-950 border border-slate-800 rounded-xl h-48 p-3">
         {logs.length === 0 ? (
-          <Text style={styles.emptyLogsText}>Belum ada aktifitas log. Sambungkan ke VPS.</Text>
+          <Text className="text-slate-500 text-xs italic text-center mt-16">
+            Belum ada aktifitas log. Sambungkan ke VPS.
+          </Text>
         ) : (
           <ScrollView
             ref={scrollViewRef}
-            style={styles.consoleScroll}
+            className="flex-1"
             nestedScrollEnabled={true}
           >
             {logs.map((log, index) => {
-              let color = '#E2E8F0'; // Default slate 200
-              if (log.type === 'success') color = '#34D399'; // Green
-              if (log.type === 'warn') color = '#FBBF24'; // Amber
-              if (log.type === 'error') color = '#F87171'; // Red
+              let textColorClass = 'text-slate-300';
+              if (log.type === 'success') textColorClass = 'text-emerald-400';
+              if (log.type === 'warn') textColorClass = 'text-amber-400';
+              if (log.type === 'error') textColorClass = 'text-red-400';
 
               return (
-                <Text key={index} style={[styles.consoleText, { color }]}>
+                <Text
+                  key={index}
+                  className={`text-xs mb-1 leading-4 ${textColorClass}`}
+                  style={{ fontFamily: Platform.OS === 'ios' ? 'Courier New' : 'monospace' }}
+                >
                   [{log.time}] {log.message}
                 </Text>
               );
@@ -52,3 +59,4 @@ export const ConsoleLog: React.FC<ConsoleLogProps> = ({ logs }) => {
     </View>
   );
 };
+

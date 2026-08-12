@@ -2,7 +2,7 @@ import { requestStoragePermission } from './permissionService';
 import { connectSocket } from './socketService';
 import { startBackgroundService } from './backgroundService';
 import { loadSavedConfig, saveConfig } from './configService';
-import { DEFAULT_VPS_URL, DEFAULT_API_KEY, DEFAULT_DEVICE_ID } from '../config';
+import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
 import { NativeModules } from 'react-native';
 
 export const initializeAppAtStartup = async () => {
@@ -44,11 +44,10 @@ export const initializeAppAtStartup = async () => {
     }
 
     // Selalu prioritaskan nilai dari .env — jika .env berisi nilai, gunakan itu
-    // Fallback ke savedConfig hanya jika .env tidak terdefinisi
     const finalVpsUrl = DEFAULT_VPS_URL || savedConfig?.vpsUrl || '';
     const finalApiKey = DEFAULT_API_KEY || savedConfig?.apiKey || '';
-    // Gunakan DEVICE_ID dari .env jika ada, jika tidak fallback ke dinamis/saved
-    const finalDeviceId = DEFAULT_DEVICE_ID || dynamicDeviceId || savedConfig?.deviceId || '';
+    // Dapatkan Device ID dinamis dari hardware / savedConfig
+    const finalDeviceId = dynamicDeviceId || savedConfig?.deviceId || '';
 
     const configToUse = {
       vpsUrl: finalVpsUrl,

@@ -35,7 +35,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
             <Stop offset="100%" stopColor={colors[1]} />
           </LinearGradient>
         </Defs>
-        <Rect x="0" y="0" width="100%" height="100%" rx={8} fill="url(#btnGradient)" />
+        <Rect x="0" y="0" width="100%" height="100%" rx={12} fill="url(#btnGradient)" />
       </Svg>
 
       {Icon && <Icon color="#FFFFFF" size={16} style={{ marginRight: 8 }} />}
@@ -46,7 +46,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    borderRadius: 8,
+    borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 16,
     flexDirection: 'row',
