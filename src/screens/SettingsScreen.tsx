@@ -94,10 +94,6 @@ export const SettingsScreen: React.FC = () => {
           setApiKey(saved.apiKey);
           activeApiKey = saved.apiKey;
         }
-        if (saved.deviceId) {
-          setDeviceId(saved.deviceId);
-          activeDeviceId = saved.deviceId;
-        }
         addLog('Konfigurasi lama berhasil dimuat.', 'info');
       }
 
@@ -129,7 +125,7 @@ export const SettingsScreen: React.FC = () => {
       }
 
       // Simpan config ke file
-      await saveConfig(vpsUrl, apiKey, deviceId);
+      await saveConfig(vpsUrl, apiKey);
       connectToVps(vpsUrl, apiKey, deviceId);
     }
   };
@@ -165,7 +161,7 @@ export const SettingsScreen: React.FC = () => {
       const saved = await loadSavedConfig();
       const url = saved?.vpsUrl || vpsUrl;
       const key = saved?.apiKey || apiKey;
-      const id = saved?.deviceId || deviceId;
+      const id = deviceId;
 
       if (!url) {
         Alert.alert('Gagal Reconnect', 'VPS URL belum dikonfigurasi.');
@@ -175,7 +171,6 @@ export const SettingsScreen: React.FC = () => {
       if (saved) {
         setVpsUrl(url);
         setApiKey(key);
-        setDeviceId(id);
       }
 
       addLog(`Reconnecting ke ${url} sebagai Device: ${id}...`, 'info');

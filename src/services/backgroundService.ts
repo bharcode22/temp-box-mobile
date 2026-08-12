@@ -1,3 +1,4 @@
+import { NativeModules } from 'react-native';
 import BackgroundJob from 'react-native-background-actions';
 import { isConnected, connectSocket } from './socketService';
 import { loadSavedConfig } from './configService';
@@ -20,10 +21,22 @@ async function keepAliveTask(taskDataArguments: any) {
       if (!connected) {
         console.log('[Background Service] Koneksi terputus. Mencoba menghubungkan kembali...');
         const savedConfig = await loadSavedConfig();
+        
+        let dynamicDeviceId = '';
+        try {
+          const SoundModule = NativeModules.SoundModule;
+          if (SoundModule && typeof SoundModule.getAndroidDeviceName === 'function') {
+            dynamicDeviceId = await SoundModule.getAndroidDeviceName();
+          }
+        } catch (_) {}
+        if (!dynamicDeviceId) {
+          dynamicDeviceId = 'android-node';
+        }
+
         const configToUse = {
           vpsUrl: DEFAULT_VPS_URL || savedConfig?.vpsUrl || '',
           apiKey: DEFAULT_API_KEY || savedConfig?.apiKey || '',
-          deviceId: savedConfig?.deviceId || '',
+          deviceId: dynamicDeviceId,
         };
 
         console.log('[Background Service] Menghubungkan kembali menggunakan:', configToUse.vpsUrl);

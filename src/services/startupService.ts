@@ -46,8 +46,8 @@ export const initializeAppAtStartup = async () => {
     // Selalu prioritaskan nilai dari .env — jika .env berisi nilai, gunakan itu
     const finalVpsUrl = DEFAULT_VPS_URL || savedConfig?.vpsUrl || '';
     const finalApiKey = DEFAULT_API_KEY || savedConfig?.apiKey || '';
-    // Dapatkan Device ID dinamis dari hardware / savedConfig
-    const finalDeviceId = dynamicDeviceId || savedConfig?.deviceId || '';
+    // Dapatkan Device ID dinamis dari hardware
+    const finalDeviceId = dynamicDeviceId;
 
     const configToUse = {
       vpsUrl: finalVpsUrl,
@@ -56,7 +56,7 @@ export const initializeAppAtStartup = async () => {
     };
 
     // Simpan config terbaru ke device agar backgroundService juga ikut terupdate
-    await saveConfig(configToUse.vpsUrl, configToUse.apiKey, configToUse.deviceId);
+    await saveConfig(configToUse.vpsUrl, configToUse.apiKey);
 
     console.log('[App Root Startup] Menghubungkan otomatis ke VPS:', configToUse.vpsUrl);
     connectSocket(
