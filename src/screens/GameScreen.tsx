@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StatusBar, Text } from 'react-native';
+import { View, ScrollView, StatusBar, Text, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Sparkles, HardDrive, ShieldCheck, Smartphone, Activity, Server, Cpu } from 'lucide-react-native';
 
@@ -8,17 +8,33 @@ import { Header } from '../components/Header';
 import { GradientText } from '../components/GradientText';
 import { BackgroundGlow } from '../components/BackgroundGlow';
 import { FeatureCard } from '../components/FeatureCard';
+import { AuthCard } from '../components/AuthCard';
 
 // Services & Config
 import { isConnected } from '../services/socketService';
 import { isBackgroundServiceRunning } from '../services/backgroundService';
+import { loadSavedAuth, signInWithGoogle, logoutAuth, UserProfile } from '../services/authService';
 import { DEFAULT_VPS_URL } from '../config';
 
 export const GameScreen: React.FC = () => {
   const [socketOnline, setSocketOnline] = useState(false);
   const [bgActive, setBgActive] = useState(false);
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const session = await loadSavedAuth();
+        if (session) {
+          setUser(session.user);
+        }
+      } catch (_) {}
+      setAuthLoading(false);
+    };
+
+    checkAuth();
+
     const interval = setInterval(() => {
       setSocketOnline(isConnected());
       setBgActive(isBackgroundServiceRunning());
@@ -26,11 +42,32 @@ export const GameScreen: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleGoogleLogin = async () => {
+    try {
+      setAuthLoading(true);
+      const session = await signInWithGoogle();
+      setUser(session.user);
+    } catch (err: any) {
+      console.error('Login error:', err);
+      Alert.alert('Gagal Login Google', err.message || 'Terjadi kesalahan saat verifikasi login.');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutAuth();
+      setUser(null);
+    } catch (err: any) {
+      console.error('Logout error:', err);
+    }
+  };
+
   return (
     <View className="flex-1 bg-slate-950" style={{ flex: 1, backgroundColor: '#090d16' }}>
       <BackgroundGlow />
       <SafeAreaView className="flex-1">
-        <StatusBar barStyle="light-content" backgroundColor="#090d16" />
         <Header subtitle="Dashboard Node" />
 
         <ScrollView className="flex-1 px-4 pt-3 pb-8" showsVerticalScrollIndicator={false}>
@@ -49,6 +86,14 @@ export const GameScreen: React.FC = () => {
               Perangkat Android Anda berfungsi sebagai remote node privat terenkripsi untuk manajemen & sinkronisasi berkas.
             </Text>
           </View>
+
+          {/* User Auth Profile / Google Login Card */}
+          <AuthCard
+            user={user}
+            loading={authLoading}
+            onLogin={handleGoogleLogin}
+            onLogout={handleLogout}
+          />
 
           {/* Node Live Status Summary */}
           <View className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 mb-5 shadow-2xl">

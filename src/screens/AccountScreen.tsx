@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StatusBar, Alert, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StatusBar, Alert, Text, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { User, LogOut, ShieldCheck, Settings, RefreshCw, Sparkles, Cpu, HardDrive } from 'lucide-react-native';
 
 // Services
 import { connectSocket, disconnectSocket } from '../services/socketService';
 import { startBackgroundService, stopBackgroundService, isBackgroundServiceRunning } from '../services/backgroundService';
 import { loadSavedConfig, saveConfig } from '../services/configService';
 import { requestStoragePermission } from '../services/permissionService';
+import { loadSavedAuth, logoutAuth, UserProfile } from '../services/authService';
 
 // Components
 import { Header } from '../components/Header';
-import { Settings, RefreshCw } from 'lucide-react-native';
 import { ConfigCard } from '../components/ConfigCard';
 import { PermissionCard } from '../components/PermissionCard';
 import { ControlCard } from '../components/ControlCard';
 import { ConsoleLog } from '../components/ConsoleLog';
 import { BackgroundGlow } from '../components/BackgroundGlow';
-import { GradientButton } from '../components/GradientButton';
-import { AuthCard } from '../components/AuthCard';
-
-// Services
-import { loadSavedAuth, signInWithGoogle, logoutAuth, UserProfile } from '../services/authService';
 
 // Constants
 import { DEFAULT_VPS_URL, DEFAULT_API_KEY } from '../config';
@@ -31,14 +27,16 @@ interface AppLog {
   type: 'info' | 'success' | 'warn' | 'error';
 }
 
-export const SettingsScreen: React.FC = () => {
+interface AccountScreenProps {
+  user: UserProfile | null;
+  onLogout: () => void;
+}
 
+export const AccountScreen: React.FC<AccountScreenProps> = ({ user, onLogout }) => {
   // Form Config
   const [vpsUrl, setVpsUrl] = useState(DEFAULT_VPS_URL);
   const [apiKey, setApiKey] = useState(DEFAULT_API_KEY);
   const [deviceId, setDeviceId] = useState('');
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [authLoading, setAuthLoading] = useState(true);
 
   // Statuses
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
@@ -50,14 +48,11 @@ export const SettingsScreen: React.FC = () => {
   // Custom logger console
   const [logs, setLogs] = useState<AppLog[]>([]);
 
-  // Tambahkan log ke console layar
   const addLog = (message: string, type: 'info' | 'success' | 'warn' | 'error' = 'info') => {
     const time = new Date().toLocaleTimeString();
     setLogs(prevLogs => [...prevLogs, { time, message, type }].slice(-100));
   };
 
-
-  // Fungsi pembantu untuk koneksi ke VPS
   const connectToVps = (url: string, key: string, id: string) => {
     if (!url) return;
 
@@ -83,20 +78,7 @@ export const SettingsScreen: React.FC = () => {
     );
   };
 
-  // Muat konfigurasi yang disimpan sebelumnya dan hubungkan otomatis
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const session = await loadSavedAuth();
-        if (session) {
-          setUser(session.user);
-        }
-      } catch (_) {}
-      setAuthLoading(false);
-    };
-
-    checkAuth();
-
     const loadSavedConfigAndConnect = async () => {
       let activeVpsUrl = vpsUrl;
       let activeApiKey = apiKey;
@@ -115,7 +97,6 @@ export const SettingsScreen: React.FC = () => {
         addLog('Konfigurasi lama berhasil dimuat.', 'info');
       }
 
-      // Hubungkan otomatis setelah memuat konfigurasi
       if (activeVpsUrl) {
         connectToVps(activeVpsUrl, activeApiKey, activeDeviceId);
       }
@@ -123,57 +104,34 @@ export const SettingsScreen: React.FC = () => {
 
     loadSavedConfigAndConnect();
     requestStoragePermission(addLog, setStoragePermissionGranted);
-
-    // Perbarui status running background service saat start
     setIsBgActive(isBackgroundServiceRunning());
   }, []);
-
-  const handleGoogleLogin = async () => {
-    try {
-      setAuthLoading(true);
-      const session = await signInWithGoogle();
-      setUser(session.user);
-      addLog(`Berhasil login sebagai ${session.user.email}`, 'success');
-    } catch (err: any) {
-      console.error('Login error:', err);
-      Alert.alert('Gagal Login Google', err.message || 'Terjadi kesalahan saat verifikasi login.');
-      addLog(`Gagal login Google: ${err.message}`, 'error');
-    } finally {
-      setAuthLoading(false);
-    }
-  };
 
   const handleLogout = async () => {
     try {
       await logoutAuth();
-      setUser(null);
       addLog('Session login berhasil dihapus (Logout).', 'info');
+      onLogout();
     } catch (err: any) {
       console.error('Logout error:', err);
     }
   };
 
-  // Handle koneksi WebSocket
   const handleConnectToggle = async () => {
     if (connectionStatus === 'connected' || connectionStatus === 'connecting') {
-      // Putuskan koneksi
       disconnectSocket();
       setConnectionStatus('disconnected');
       addLog('Koneksi WebSocket diputus.', 'info');
     } else {
-      // Hubungkan koneksi
       if (!vpsUrl) {
         Alert.alert('Error', 'VPS URL tidak boleh kosong');
         return;
       }
-
-      // Simpan config ke file
       await saveConfig(vpsUrl, apiKey);
       connectToVps(vpsUrl, apiKey, deviceId);
     }
   };
 
-  // Handle Foreground Service Toggle
   const handleBgServiceToggle = async () => {
     try {
       if (isBgActive) {
@@ -190,58 +148,53 @@ export const SettingsScreen: React.FC = () => {
     }
   };
 
-  // Handle Reconnect ke VPS
-  const handleReconnect = async () => {
-    if (isReconnecting) return;
-    setIsReconnecting(true);
-    try {
-      // Putuskan koneksi aktif terlebih dahulu
-      disconnectSocket();
-      setConnectionStatus('disconnected');
-      addLog('Memutus koneksi sebelumnya...', 'info');
-
-      // Muat ulang konfigurasi terbaru lalu sambungkan ulang
-      const saved = await loadSavedConfig();
-      const url = saved?.vpsUrl || vpsUrl;
-      const key = saved?.apiKey || apiKey;
-      const id = deviceId;
-
-      if (!url) {
-        Alert.alert('Gagal Reconnect', 'VPS URL belum dikonfigurasi.');
-        return;
-      }
-
-      if (saved) {
-        setVpsUrl(url);
-        setApiKey(key);
-      }
-
-      addLog(`Reconnecting ke ${url} sebagai Device: ${id}...`, 'info');
-      connectToVps(url, key, id);
-    } catch (err: any) {
-      addLog(`Gagal reconnect: ${err.message}`, 'error');
-    } finally {
-      setIsReconnecting(false);
-    }
-  };
-
   return (
     <View className="flex-1 bg-slate-950" style={{ flex: 1, backgroundColor: '#090d16' }}>
       <BackgroundGlow />
       <SafeAreaView className="flex-1">
         <StatusBar barStyle="light-content" backgroundColor="#090d16" />
-        <Header subtitle="Control Center" />
+        <Header subtitle="Profil & Pengaturan Node" />
 
         <ScrollView className="flex-1 px-4 pt-3 pb-8" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-          {/* Section 0: Google Authentication Status / Login Card */}
-          <AuthCard
-            user={user}
-            loading={authLoading}
-            onLogin={handleGoogleLogin}
-            onLogout={handleLogout}
-          />
+          {/* User Profile Card */}
+          <View className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 mb-4 shadow-xl">
+            <View className="flex-row items-center justify-between mb-4 pb-4 border-b border-slate-800/80">
+              <View className="flex-row items-center gap-3">
+                {user?.picture ? (
+                  <Image
+                    source={{ uri: user.picture }}
+                    className="w-14 h-14 rounded-2xl border border-indigo-500/40"
+                  />
+                ) : (
+                  <View className="w-14 h-14 rounded-2xl bg-indigo-600/30 border border-indigo-500/40 items-center justify-center">
+                    <Text className="text-white font-black text-xl">
+                      {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    </Text>
+                  </View>
+                )}
+                <View className="flex-1">
+                  <Text className="text-white font-extrabold text-base">{user?.name || 'Pengguna'}</Text>
+                  <Text className="text-slate-400 text-xs mt-0.5">{user?.email || 'email@google.com'}</Text>
+                  <View className="flex-row items-center gap-1.5 mt-2">
+                    <ShieldCheck color="#34D399" size={13} />
+                    <Text className="text-[11px] font-semibold text-emerald-400">Terverifikasi Google</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
 
-          {/* Section 1: Connection & Services Controls */}
+            {/* Logout Button */}
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={handleLogout}
+              className="bg-rose-500/10 border border-rose-500/30 py-3 px-4 rounded-xl flex-row items-center justify-center gap-2"
+            >
+              <LogOut color="#F87171" size={16} />
+              <Text className="text-rose-400 font-bold text-xs">Keluar Dari Akun (Logout)</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Section: Connection & Services Controls */}
           <ControlCard
             connectionStatus={connectionStatus}
             isBgActive={isBgActive}
@@ -249,13 +202,13 @@ export const SettingsScreen: React.FC = () => {
             onBgServiceToggle={handleBgServiceToggle}
           />
 
-          {/* Section 2: Android Storage Permissions */}
+          {/* Section: Storage Permissions */}
           <PermissionCard
             storagePermissionGranted={storagePermissionGranted}
             onRequestPermission={() => requestStoragePermission(addLog, setStoragePermissionGranted)}
           />
 
-          {/* Section 3: Server & VPS Configuration */}
+          {/* Section: Server & VPS Configuration */}
           <ConfigCard
             vpsUrl={vpsUrl}
             setVpsUrl={setVpsUrl}
@@ -265,14 +218,12 @@ export const SettingsScreen: React.FC = () => {
             setDeviceId={setDeviceId}
           />
 
-          {/* Section 4: Real-time Developer Console Logs */}
+          {/* Section: Console Logs */}
           <ConsoleLog logs={logs} />
 
-          {/* Bottom Spacing */}
           <View className="h-8" />
         </ScrollView>
       </SafeAreaView>
     </View>
   );
 };
-
