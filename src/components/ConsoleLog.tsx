@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, ScrollView, Platform } from 'react-native';
+import { Terminal } from 'lucide-react-native';
 
 interface AppLog {
   time: string;
@@ -22,14 +23,21 @@ export const ConsoleLog: React.FC<ConsoleLogProps> = ({ logs }) => {
   }, [logs]);
 
   return (
-    <View className="flex-1 my-2">
-      <Text className="text-xs font-bold text-indigo-400 mb-2 uppercase tracking-wider">
-        Activity Log (Real-time)
-      </Text>
-      <View className="bg-slate-950 border border-slate-800 rounded-xl h-48 p-3">
+    <View className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 mb-4 shadow-xl">
+      <View className="flex-row items-center gap-2.5 mb-3">
+        <View className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 items-center justify-center">
+          <Terminal color="#818CF8" size={18} />
+        </View>
+        <View>
+          <Text className="text-base font-bold text-slate-50">Real-time Activity Log</Text>
+          <Text className="text-[11px] text-slate-400">Jejak Event Socket & Service</Text>
+        </View>
+      </View>
+
+      <View className="bg-slate-950 border border-slate-800/90 rounded-xl h-48 p-3.5">
         {logs.length === 0 ? (
           <Text className="text-slate-500 text-xs italic text-center mt-16">
-            Belum ada aktifitas log. Sambungkan ke VPS.
+            Belum ada aktivitas log. Hubungkan ke VPS Server.
           </Text>
         ) : (
           <ScrollView
@@ -46,7 +54,7 @@ export const ConsoleLog: React.FC<ConsoleLogProps> = ({ logs }) => {
               return (
                 <Text
                   key={index}
-                  className={`text-xs mb-1 leading-4 ${textColorClass}`}
+                  className={`text-[11px] mb-1 leading-4 ${textColorClass}`}
                   style={{ fontFamily: Platform.OS === 'ios' ? 'Courier New' : 'monospace' }}
                 >
                   [{log.time}] {log.message}
@@ -59,4 +67,5 @@ export const ConsoleLog: React.FC<ConsoleLogProps> = ({ logs }) => {
     </View>
   );
 };
+
 

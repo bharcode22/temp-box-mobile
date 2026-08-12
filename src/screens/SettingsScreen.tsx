@@ -192,33 +192,41 @@ export const SettingsScreen: React.FC = () => {
       <BackgroundGlow />
       <SafeAreaView className="flex-1">
         <StatusBar barStyle="light-content" backgroundColor="#090d16" />
-        <Header subtitle="Settings" />
+        <Header subtitle="Control Center" />
 
-        <ScrollView className="flex-1 p-4" keyboardShouldPersistTaps="handled">
-          {/* VPS Connection Status Card */}
-          <View className="bg-slate-900/70 border border-white/10 rounded-2xl p-5 mb-4 shadow-lg">
-            <Text className="text-base font-bold text-slate-50 mb-3">Koneksi Database</Text>
+        <ScrollView className="flex-1 px-4 pt-3 pb-8" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+          {/* Section 1: Connection & Services Controls */}
+          <ControlCard
+            connectionStatus={connectionStatus}
+            isBgActive={isBgActive}
+            onConnectToggle={handleConnectToggle}
+            onBgServiceToggle={handleBgServiceToggle}
+          />
 
-            {/* Status Koneksi */}
-            <View className="flex-row items-center mb-2">
-              <Text className="text-sm font-semibold text-slate-400 mr-2">V1.0.0:</Text>
-            </View>
+          {/* Section 2: Android Storage Permissions */}
+          <PermissionCard
+            storagePermissionGranted={storagePermissionGranted}
+            onRequestPermission={() => requestStoragePermission(addLog, setStoragePermissionGranted)}
+          />
 
-            {/* Tombol Reconnect Bergradasi */}
-            <GradientButton
-              title={isReconnecting ? 'Menghubungkan...' : connectionStatus === 'connected' ? 'Check Update' : 'Checking Update...'}
-              Icon={RefreshCw}
-              onPress={handleReconnect}
-              disabled={isReconnecting}
-              colors={connectionStatus === 'connected' ? ['#334155', '#1E293B'] : ['#4F46E5', '#7C3AED']}
-              style={{ marginTop: 12 }}
-            />
-          </View>
+          {/* Section 3: Server & VPS Configuration */}
+          <ConfigCard
+            vpsUrl={vpsUrl}
+            setVpsUrl={setVpsUrl}
+            apiKey={apiKey}
+            setApiKey={setApiKey}
+            deviceId={deviceId}
+            setDeviceId={setDeviceId}
+          />
 
-          {/* Spacer */}
+          {/* Section 4: Real-time Developer Console Logs */}
+          <ConsoleLog logs={logs} />
+
+          {/* Bottom Spacing */}
           <View className="h-8" />
         </ScrollView>
       </SafeAreaView>
     </View>
   );
 };
+

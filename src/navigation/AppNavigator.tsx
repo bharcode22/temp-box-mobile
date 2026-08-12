@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Settings, Gamepad2 } from 'lucide-react-native';
+import { LayoutDashboard, SlidersHorizontal } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { GameScreen } from '../screens/GameScreen';
@@ -37,14 +37,14 @@ export const AppNavigator: React.FC = () => {
         },
         tabBarLabelStyle: {
           fontSize: 10,
-          fontWeight: '600',
+          fontWeight: '700',
         },
         tabBarIcon: ({ color, size }) => {
           const iconSize = size - 2;
           if (route.name === 'Game') {
-            return <Gamepad2 color={color} size={iconSize} />;
+            return <LayoutDashboard color={color} size={iconSize} />;
           } else if (route.name === 'Settings') {
-            return <Settings color={color} size={iconSize} />;
+            return <SlidersHorizontal color={color} size={iconSize} />;
           }
           return null;
         },
@@ -53,14 +53,15 @@ export const AppNavigator: React.FC = () => {
       <Tab.Screen
         name="Game"
         component={GameScreen}
-        options={{ tabBarLabel: 'Play' }}
+        options={{ tabBarLabel: 'Dashboard' }}
       />
       <Tab.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{ tabBarLabel: 'Settings' }}
+        options={{ tabBarLabel: 'Control' }}
       />
     </Tab.Navigator>
   );
 };
+
 
